@@ -1,5 +1,6 @@
 import sys
 
+
 def ft_score_analytics() -> None:
     """Processes raw string arguments individually.
 
@@ -10,7 +11,7 @@ def ft_score_analytics() -> None:
 
     i: int = 1
     while i < total_args:
-        arg: int = sys.argv[i]
+        arg: str = sys.argv[i]
         try:
             score_list = score_list + [int(arg)]
         except ValueError:
@@ -25,10 +26,9 @@ def ft_score_analytics() -> None:
                 )
         return
     score_sum: int = 0
-    score_max: int = score_list[1]
-    score_min: int = score_list[1]
+    score_max: int = score_list[0]
+    score_min: int = score_list[0]
     i = 0
-
 
     while i < total_players:
         score_sum += score_list[i]
@@ -50,4 +50,3 @@ def ft_score_analytics() -> None:
 
 if __name__ == "__main__":
     ft_score_analytics()
-

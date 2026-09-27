@@ -1,15 +1,21 @@
 import random
 
 ALL_ACHIEVEMENTS = [
-        'Crafting Genius', 'World Savior', 'Master Explorer',
-        'Collector Supreme', 'Untouchable', 'Boss Slayer',
-        'Speedrunner', 'Treasure Hunter', 'First Blood', 'PvP God',
-        'Lore Master', 'Shadow Ninja', 'Rich individual', 'Undead Slayer'
-        ]
+    'Crafting Genius', 'World Savior', 'Master Explorer',
+    'Collector Supreme', 'Untouchable', 'Boss Slayer',
+    'Speedrunner', 'Treasure Hunter', 'First Blood', 'PvP God',
+    'Lore Master', 'Shadow Ninja', 'Rich individual', 'Undead Slayer'
+]
 
 
-def gen_player_achievement_tracker() -> set:
-    all_set: set = set(ALL_ACHIEVEMENTS)
+def gen_player_achievement_tracker() -> set[str]:
+    """Generates a random set of achievements for a player.
+    Selects a random sample of achievements
+
+    Returns:
+        set[str]: A set of unique achievements names
+    """
+    all_set: set[str] = set(ALL_ACHIEVEMENTS)
 
     count = random.randint(1, len(all_set))
 
@@ -17,18 +23,32 @@ def gen_player_achievement_tracker() -> set:
     return set(achievement_list)
 
 
-def get_unique_achievements(players_data, target_name) -> set:
-    other_union: set = set()
+def get_unique_achievements(
+    players_data: dict[str, set[str]],
+    target_name: str
+) -> set[str]:
+    """Finds achievements that are earned by a single player
+
+    Args:
+        players_data: A dictionary mapping player names
+        target_name: A name of the player to analyze
+
+    Returns:
+        set[str]: A set of achievements unique to the target player.
+    """
+
+    other_union: set[str] = set()
     for name in players_data:
         if name != target_name:
-            others_union = other_union.union(players_data[name])
+            other_union = other_union.union(players_data[name])
 
-    return players_data[target_name].difference(others_union)
+    return players_data[target_name].difference(other_union)
 
 
 def main() -> None:
+    """Simulates achievement tracking for a group of players."""
     players_list: list[str] = ['Alice', 'Bob', 'Charlie', 'Dylan']
-    players_data: dict = {}
+    players_data: dict[str, set[str]] = {}
 
     for name in players_list:
         players_data[name] = gen_player_achievement_tracker()
@@ -40,14 +60,13 @@ def main() -> None:
     print(f"\nCommon achievements: {common}\n")
 
     for name in players_data:
-        unique: set = get_unique_achievements(players_data, name)
+        unique: set[str] = get_unique_achievements(players_data, name)
         print(f"Only {name} has: {unique}")
-    
+
     print("\n")
-    full_set: set = set(ALL_ACHIEVEMENTS)
+    full_set: set[str] = set(ALL_ACHIEVEMENTS)
     for name in players_data:
         print(f"{name} is missing: {full_set.difference(players_data[name])}")
-
 
 
 if __name__ == "__main__":
