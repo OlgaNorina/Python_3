@@ -56,10 +56,8 @@ def main() -> None:
         print(f"Player {name}: {players_data[name]}")
 
     all_players_achievements: set[str] = set()
-    for achievement in players_data:
-        all_players_achievements = all_players_achievements.union(
-            players_data[name]
-            )
+    for achievement in players_data.values():
+        all_players_achievements.update(achievement)
     print(f"\nAll distinct achievements: {all_players_achievements}")
 
     common = players_data[players_list[0]]
