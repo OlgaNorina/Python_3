@@ -12,7 +12,7 @@ def ft_inventory_system() -> dict[str, int]:
 
     for arg in sys.argv[1:]:
         if ":" not in arg:
-            print(f"Error - invalid parameter '{arg}")
+            print(f"Error - invalid parameter '{arg}'")
             continue
 
         one_inv: list[str] = arg.split(":", 1)
@@ -52,17 +52,18 @@ def inventory_analyze(inventory: dict[str, int]) -> None:
             ) if amount > 0 else 0.0
         print(f"Item {key} represents {percetage}%")
 
-    max_inv: int = -1
-    min_inv: int = sys.maxsize
-    most_abundant: str = ""
-    least_abundant: str = ""
+    keys_list = list(inventory.keys())
+    most_abundant: str = keys_list[0]
+    least_abundant: str = keys_list[0]
+
+    max_inv: int = inventory[most_abundant]
+    min_inv: int = inventory[least_abundant]
 
     for key in inventory:
         inv: int = inventory[key]
         if inv > max_inv:
             max_inv = inv
             most_abundant = key
-
         if inv < min_inv:
             min_inv = inv
             least_abundant = key
@@ -72,11 +73,11 @@ def inventory_analyze(inventory: dict[str, int]) -> None:
 
 
 def main() -> None:
+    print("=== Inventory System Analysis ===")
     inventory = ft_inventory_system()
     if not inventory:
         return
 
-    print("=== Inventory System Analysis ===")
     print(f"Got inventory: {inventory}")
     print(f"Item list: {list(inventory.keys())}")
 

@@ -6,6 +6,7 @@ def ft_score_analytics() -> None:
 
     Discards invalid inputs while printing error messages.
     """
+    print("=== Player Score Analytics ===")
     total_args: int = len(sys.argv)
     score_list: list[int] = []
 
@@ -25,20 +26,11 @@ def ft_score_analytics() -> None:
                 "<score1> <score2> ..."
                 )
         return
-    score_sum: int = 0
-    score_max: int = score_list[0]
-    score_min: int = score_list[0]
+    score_sum: int = sum(score_list)
+    score_max: int = max(score_list)
+    score_min: int = min(score_list)
     i = 0
 
-    while i < total_players:
-        score_sum += score_list[i]
-        if score_max < score_list[i]:
-            score_max = score_list[i]
-        if score_min > score_list[i]:
-            score_min = score_list[i]
-        i += 1
-
-    print("=== Player Score Analytics ===")
     print(f"Scores processed: {score_list}")
     print(f"Total players: {total_players}")
     print(f"Total score: {score_sum}")

@@ -8,7 +8,7 @@ ALL_ACHIEVEMENTS = [
 ]
 
 
-def gen_player_achievement_tracker() -> set[str]:
+def gen_player_achievements() -> set[str]:
     """Generates a random set of achievements for a player.
     Selects a random sample of achievements
 
@@ -47,12 +47,20 @@ def get_unique_achievements(
 
 def main() -> None:
     """Simulates achievement tracking for a group of players."""
+    print("=== Achievement Tracker System ===\n")
     players_list: list[str] = ['Alice', 'Bob', 'Charlie', 'Dylan']
     players_data: dict[str, set[str]] = {}
 
     for name in players_list:
-        players_data[name] = gen_player_achievement_tracker()
+        players_data[name] = gen_player_achievements()
         print(f"Player {name}: {players_data[name]}")
+
+    all_players_achievements: set[str] = set()
+    for achievement in players_data:
+        all_players_achievements = all_players_achievements.union(
+            players_data[name]
+            )
+    print(f"\nAll distinct achievements: {all_players_achievements}")
 
     common = players_data[players_list[0]]
     for name in players_list[1:]:
